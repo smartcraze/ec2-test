@@ -11,24 +11,20 @@ jobs:
 
     steps:
       # Step 1: Checkout your repo
-      - name: Checkout code
-        uses: actions/checkout@v3
+        - name: Checkout code
+          uses: actions/checkout@v3
         
-
       # Step 2: Setup SSH key
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 210.79.128.245 >> ~/.ssh/known_hosts
+        - name: Deploy to VM
+          run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            ssh-keyscan -H 210.79.128.245 >> ~/.ssh/known_hosts
 
-      # Step 3: SSH into VM and run commands line by line
-      - name: Deploy via SSH
-        run: |
-          ssh -i ~/.ssh/id_rsa -t ubuntu@210.79.128.245 << 'EOF'
+            ssh -i ~/.ssh/id_rsa ubuntu@210.79.128.245 << 'EOF'
             cd ec2-test
             git pull
             npm install
             pm2 restart test
-          EOF
+            EOF
