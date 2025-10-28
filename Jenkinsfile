@@ -2,26 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                git branch: 'main', url: 'https://github.com/smartcraze/ec2-test.git'
+                echo 'Building..'
             }
         }
-
-        stage('Install Dependencies') {
+        stage('Test') {
             steps {
-                sh 'bun install'
+                echo 'Testing..'
             }
         }
-        
-    }
-
-    post {
-        success {
-            echo 'Build succeeded!'
-        }
-        failure {
-            echo 'Build failed.'
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
         }
     }
 }
+
+
