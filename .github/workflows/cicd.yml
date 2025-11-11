@@ -22,7 +22,8 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ~/ci-cd-piplines-action-jenkins
-            git pull origin main
+            git fetch --all
+            git reset --hard origin/main
             bun install --production
             sudo systemctl restart bun-app.service
             echo "✅ Bun app updated and restarted"
