@@ -23,7 +23,7 @@ app.use(bodyParser.json({ limit: '1mb' }));
 
 const limiter = rateLimit({
 	windowMs: 60 * 1000, // 1 minute
-	max: Number(process.env.RATE_LIMIT_MAX || 120),
+	max: Number(process.env.RATE_LIMIT_MAX || 10),
 });
 app.use(limiter);
 
