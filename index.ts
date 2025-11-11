@@ -56,6 +56,7 @@ Bun.serve({
 
             return Response.json(post);
         },
+        "/api/health": () => new Response("OK"),
     },
 
     error(error) {
