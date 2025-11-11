@@ -31,12 +31,13 @@ app.use(httpLogger as any);
 
 collectDefaultMetrics();
 
+
 app.get('/health', (_req: Request, res: Response) => {
 	res.status(200).json({ status: 'ok', uptime: process.uptime() });
 });
 
 app.get('/', (_req: Request, res: Response) => {
-	res.json({ message: 'Welcome to the production-ready Express API' });
+	res.send({ message: 'Welcome to the production-ready Express API' });
 });
 
 app.post('/echo', (req: Request, res: Response, next: NextFunction) => {
